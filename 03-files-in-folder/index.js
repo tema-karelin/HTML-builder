@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { readdir } = require('fs/promises');
+const fsPromoses = require('fs/promises');
 
 const targetDir = path.join(__dirname, 'secret-folder');
 
@@ -8,7 +8,7 @@ console.log("\nList of files in secret-folder directory:\n");
 
 async function readDirectory(dir) {
   try {
-    const files = await readdir(dir, {withFileTypes: true});
+    const files = await fsPromoses.readdir(dir, {withFileTypes: true});
     for (const file of files) {
       if (file.isFile()) {
         let extension  = path.extname(file.name);
