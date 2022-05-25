@@ -34,11 +34,11 @@ async function copyDir(current, targetPath) {
       }
     } else {
       // await copyDir(path.join(current, fileToCopy.name), path.join(targetPath, fileToCopy.name));
-      await createFolder(path.join(current, fileToCopy.name), path.join(targetPath, fileToCopy.name));
+      await copyFolder(path.join(current, fileToCopy.name), path.join(targetPath, fileToCopy.name));
     }
   }
 }
-async function createFolder(copyFromDirPath, newDirPath) {
+async function copyFolder(copyFromDirPath, newDirPath) {
   fsPromises.mkdir(newDirPath, (err) => {
     if (err == 'EEXIST') {
       console.log('Directory already exists.\nWill delete current folder and recreate it');
@@ -49,8 +49,8 @@ async function createFolder(copyFromDirPath, newDirPath) {
     copyDir(copyFromDirPath, newDirPath);
   },
   () => {
-    deleteFolder(newDirPath).then( () => createFolder(copyFromDirPath, newDirPath))
+    deleteFolder(newDirPath).then( () => copyFolder(copyFromDirPath, newDirPath))
   });
 }
 
-createFolder(copyFromDirPath, newDirPath);
+copyFolder(copyFromDirPath, newDirPath);
